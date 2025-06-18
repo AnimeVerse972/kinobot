@@ -1,7 +1,7 @@
 import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.enums import ParseMode
+from aiogram.types import ParseMode
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.utils import executor
 from aiogram.dispatcher.filters import CommandStart
