@@ -1,8 +1,6 @@
 import os
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.types import ParseMode
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from aiogram.utils import executor
 from aiogram.dispatcher.filters import CommandStart
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -13,7 +11,7 @@ API_TOKEN = '7464520868:AAHuDJNgGGyMnhKQ4ywvnpDyBBh73SXYpj4'
 ADMIN_ID = 6486825926
 REQUIRED_CHANNEL = '@AniVerseClip'
 
-bot = Bot(token=API_TOKEN)
+bot = Bot(token=API_TOKEN, parse_mode=ParseMode.HTML)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
@@ -42,11 +40,12 @@ def get_admins():
             return f.read().splitlines()
     return []
 
-# Majburiy obuna tekshiruvi
+# Majburiy obuna tugmasi
 def get_subscribe_keyboard():
-    btn = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📢 Kanalga obuna bo‘lish", url=f"https://t.me/{REQUIRED_CHANNEL[1:]}")]
-    ])
+    btn = InlineKeyboardMarkup(row_width=1)
+    btn.add(
+        InlineKeyboardButton(text="📢 Kanalga obuna bo‘lish", url=f"https://t.me/{REQUIRED_CHANNEL[1:]}")
+    )
     return btn
 
 @dp.message_handler(CommandStart())
@@ -59,8 +58,10 @@ async def start_handler(message: types.Message):
     try:
         member = await bot.get_chat_member(chat_id=REQUIRED_CHANNEL, user_id=user_id)
         if member.status not in ['member', 'administrator', 'creator']:
-            await message.answer("❗ Botdan foydalanish uchun quyidagi kanalga obuna bo‘ling:",
-                                 reply_markup=get_subscribe_keyboard())
+            await message.answer(
+                "❗ Botdan foydalanish uchun quyidagi kanalga obuna bo‘ling:",
+                reply_markup=get_subscribe_keyboard()
+            )
             return
     except Exception as e:
         await message.answer("⚠ Kanal mavjud emas yoki bot moderator emas.")
