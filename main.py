@@ -9,7 +9,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.handler import CancelHandler
 
-API_TOKEN = 'YOUR_BOT_TOKEN_HERE'
+API_TOKEN = '7464520868:AAHuDJNgGGyMnhKQ4ywvnpDyBBh73SXYpj4'
 ADMIN_ID = 6486825926
 REQUIRED_CHANNEL = '@AniVerseClip'
 
